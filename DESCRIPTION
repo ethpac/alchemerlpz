@@ -1,0 +1,26 @@
+Package: alchemr
+Type: Package
+Title: Download & Clean Alchemer Survey Responses
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Brian", "Slattery",
+      email = "banjaloupe@gmail.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: A set of functions for more smoothly downloading Alchemer responses from the v5 API, and cleaning them into a usable format.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    httr,
+    janitor,
+    lubridate,
+    readr,
+    stats,
+    stringr,
+    tidyr,
+    tidyselect,
+    utils
