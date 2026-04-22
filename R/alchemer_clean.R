@@ -28,15 +28,15 @@ alchemer_clean <- function(df, keep_test = FALSE, keep_dq = FALSE, keep_metadata
   }
   if (keep_metadata == FALSE) {
     df <- df |>
-      dplyr::select(id, status, date_submitted, survey_data)
+      dplyr::select(id, status, date_time_submitted, survey_data)
   }
 
   # initial unnest
   df <- df |>
-    tidyr::unnest_wider(c(id, status, date_submitted), "_")
+    tidyr::unnest_wider(c(id, status, date_time_submitted), "_")
 
   # get proper timezone (defaults to UTC if not EST/EDT which it should be)
-  timesplit <- df |> utils::head(1) |> dplyr::pull(date_submitted) |> stringr::str_split(" ")
+  timesplit <- df |> utils::head(1) |> dplyr::pull(date_time_submitted) |> stringr::str_split(" ")
   bad_timezone <- timesplit[[1]][3]
   if (bad_timezone %in% c("EST", "EDT")) {
     timezone <- "America/New_York"
@@ -47,7 +47,7 @@ alchemer_clean <- function(df, keep_test = FALSE, keep_dq = FALSE, keep_metadata
   # format response id and date time submitted, fix status name
   df <- df |>
     dplyr::mutate(response_id = readr::parse_number(id_1)) |>
-    dplyr::mutate(date_time_submitted = lubridate::parse_date_time(date_submitted, orders = "ymd HMS", tz = timezone)) |>
+    dplyr::mutate(date_time_submitted = lubridate::parse_date_time(date_time_submitted, orders = "ymd HMS", tz = timezone)) |>
     dplyr::rename(status = status_1)
 
   # unnest survey data
