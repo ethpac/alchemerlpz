@@ -48,7 +48,7 @@ alchemer_clean <- function(df, keep_test = FALSE, keep_dq = FALSE, keep_metadata
   # format response id and date time submitted
   df <- df |>
     dplyr::mutate(
-      response_id = readr::parse_number(id),
+      response_id = id,
       date_submitted = lubridate::parse_date_time(
         date_submitted,
         orders = "ymd HMS",
